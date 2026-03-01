@@ -18,3 +18,6 @@ View your app in AI Studio: https://ai.studio/apps/baa6c10e-942f-4372-b9d4-3fa44
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+https://sfcollab.atlassian.net/jira/software/projects/KAN/boards/1?atlOrigin=eyJpIjoiZTY1N2RjY2IzMzBkNDNjYzkwNTgxZDNmZjkyN2I3MjIiLCJwIjoiaiJ9  - jira roadmap
+
