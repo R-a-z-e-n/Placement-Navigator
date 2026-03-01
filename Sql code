@@ -1,0 +1,119 @@
+
+
+
+
+##  Database Schema
+
+### 1. **Users Table**
+Stores student profiles.
+
+
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    college VARCHAR(100),
+    branch VARCHAR(50),
+    year_of_study INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+### 2. **Resumes Table**
+Stores uploaded resumes + AI scores.
+
+CREATE TABLE resumes (
+    resume_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    resume_text TEXT NOT NULL,
+    ai_score INT,
+    strengths TEXT,
+    improvements TEXT,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+
+### 3. **Mock Interviews Table**
+Stores interview questions, answers, and AI feedback.
+
+
+CREATE TABLE mock_interviews (
+    interview_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    question TEXT NOT NULL,
+    answer TEXT,
+    feedback TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+
+### 4. **Company Insights Table**
+Stores recruiter/company data.
+
+CREATE TABLE company_insights (
+    company_id INT AUTO_INCREMENT PRIMARY KEY,
+    company_name VARCHAR(100) NOT NULL,
+    role VARCHAR(100),
+    salary_range VARCHAR(50),
+    hiring_timeline VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+### 5. **Analytics Events Table**
+Logs user actions for Mixpanel sync.
+
+
+CREATE TABLE analytics_events (
+    event_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    event_name VARCHAR(100) NOT NULL,
+    event_data JSON,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+##  Sample Queries
+
+### Insert a new user
+
+INSERT INTO users (full_name, email, college, branch, year_of_study)
+VALUES ('Mohammad Razeen Iqbal', 'raziqbal@example.com', 'XYZ College', 'CSE', 3);
+
+
+### Upload a resume
+
+INSERT INTO resumes (user_id, resume_text)
+VALUES (1, 'BTech student skilled in Python, AI projects...');
+
+
+### Update resume with AI score
+
+UPDATE resumes
+SET ai_score = 85,
+    strengths = 'Strong technical projects, clear formatting',
+    improvements = 'Add measurable achievements'
+WHERE resume_id = 1;
+
+
+### Log a mock interview
+
+INSERT INTO mock_interviews (user_id, question, answer, feedback)
+VALUES (1, 'Tell me about a project you worked on', 'I built an AI placement navigator...', 'Good clarity, add metrics');
+
+
+### Add company insight
+
+INSERT INTO company_insights (company_name, role, salary_range, hiring_timeline)
+VALUES ('TCS', 'Ninja Developer', '3.3 LPA', 'Hiring in August 2026');
+
+
+### Log analytics event
+
+INSERT INTO analytics_events (user_id, event_name, event_data)
+VALUES (1, 'resume_uploaded', '{"file":"resume.pdf"}');
+
+
+
+
