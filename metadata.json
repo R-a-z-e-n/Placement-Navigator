@@ -1,0 +1,5 @@
+{
+  "name": "Placement Navigator",
+  "description": "An AI-powered placement preparation platform featuring resume building, mock interviews, and company insights.",
+  "requestFramePermissions": ["microphone"]
+}
